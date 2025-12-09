@@ -325,7 +325,7 @@ def explain_prediction(model, patient_data):
         display_data.append(val_display)
     
     # 3. 创建SHAP解释对象，通过display_data控制显示（核心：只显示“特征名 + 值”，不重复）
-   shap_expl = shap.Explanation(
+    shap_expl = shap.Explanation(
         values=sample_shap,
         base_values=base_value,
         feature_names=feature_names,
@@ -340,7 +340,7 @@ def explain_prediction(model, patient_data):
         ax=ax,  # 指定坐标轴，方便调整边距
         max_display=10  # 只显示前10个核心特征，避免拥挤
     )
-   # ========== 核心：调整Matplotlib间距（关键！） ==========
+    # ========== 核心：调整Matplotlib间距（关键！） ==========
     # left：增大左内边距（给Y轴长变量名留空间）；right：缩小右内边距（让图表右移）
     # top/bottom：微调上下边距，避免截断
     plt.subplots_adjust(left=0.4, right=0.98, top=0.95, bottom=0.1)
