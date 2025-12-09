@@ -388,7 +388,7 @@ def main():
         
         # SHAP Explanations
         st.subheader("模型解释")
-         cols_shap = st.columns(2)
+        cols_shap = st.columns(2)
         
         # Global SHAP plot (pre-saved image)
         with cols_shap[0]:
