@@ -314,27 +314,29 @@ def explain_prediction(model, patient_data):
     
     # 构造英文特征名 + 英文特征值（核心修改）
     feature_names = [FEATURE_DETAILS_EN[col]['display'] for col in FEATURE_ORDER]
+    # 2. 构造【仅特征值】的显示数据（不包含特征名）
     display_data = []
-    for col, val in sample_features.items():
-        # 对分类特征，显示英文标签；连续特征直接显示值
+    for col in FEATURE_ORDER:
+        val = sample_features[col]
         if FEATURE_DETAILS_EN[col]['type'] == 'select':
             val_display = FEATURE_DETAILS_EN[col]['labels'].get(val, str(val))
         else:
             val_display = f"{val}"
-        # 拼接英文特征名+值，控制长度
-        display_data.append(f"{FEATURE_DETAILS_EN[col]['display']}: {val_display}")
+        display_data.append(val_display)  # 仅保留“值”，无特征名
     
+    # 3. 创建SHAP解释对象，通过display_data控制显示（核心：只显示“特征名 + 值”，不重复）
+    shap_expl = shap.Explanation(
+        values=sample_shap,
+        base_values=base_value,
+        feature_names=feature_names,
+        display_data=[f"{name}: {val}" for name, val in zip(feature_names, display_data)]
+    )
     # 创建Waterfall图（纯英文，无需中文字体）
     fig = plt.figure(figsize=(12, 8))
     shap.waterfall_plot(
-        shap.Explanation(
-            values=sample_shap,
-            base_values=base_value,
-            data=display_data,  # 英文特征值
-            feature_names=feature_names  # 英文特征名
-        ),
-        show=False
-      
+        shap_expl,
+        show=False,
+        max_display=10  # 只显示前10个核心特征，避免拥挤
     )
     plt.tight_layout()
     return fig, shap_values[1]
