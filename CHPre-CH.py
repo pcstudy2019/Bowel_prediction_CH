@@ -322,46 +322,22 @@ def explain_prediction(model, patient_data):
             val_display = FEATURE_DETAILS_EN[col]['labels'].get(val, str(val))
         else:
             val_display = f"{val}"
-        display_data.append(val_display)
+        display_data.append(val_display) 
     
     # 3. 创建SHAP解释对象，通过display_data控制显示（核心：只显示“特征名 + 值”，不重复）
     shap_expl = shap.Explanation(
         values=sample_shap,
         base_values=base_value,
         feature_names=feature_names,
-        data=display_data
+        display_data=[f"{name}: {val}" for name, val in zip(feature_names, display_data)]
     )
     # 1. 超大画布：给长变量名足够显示空间（宽调至16，高调至9）
-    fig = plt.figure(figsize=(16, 9))
-    ax = plt.gca()
+    fig = plt.figure(figsize=(12, 8))
     shap.waterfall_plot(
         shap_expl,
         show=False,
-        ax=ax,  # 指定坐标轴，方便调整边距
         max_display=10  # 只显示前10个核心特征，避免拥挤
     )
-    # ========== 核心：调整Matplotlib间距（关键！） ==========
-    # left：增大左内边距（给Y轴长变量名留空间）；right：缩小右内边距（让图表右移）
-    # top/bottom：微调上下边距，避免截断
-    plt.subplots_adjust(left=0.4, right=0.98, top=0.95, bottom=0.1)
-    
-    # 3. 调整Y轴标签：左对齐+增大间距，完整显示长变量名
-    ax.tick_params(
-        axis='y', 
-        labelsize=9,       # 字体大小适中，不挤压
-        pad=5,             # 标签与Y轴的间距
-        alignment='left'   # Y轴标签左对齐，避免被截断
-    )
-    ax.yaxis.set_tick_params(left=True)  # 强制Y轴标签显示在左侧
-    
-    # 4. 调整X轴：右对齐，不挤压
-    ax.tick_params(axis='x', labelsize=9, pad=3)
-    ax.set_xlabel("SHAP Value (Impact on Prediction)", fontsize=10)
-    
-    # 5. 隐藏黑色叠加文本（只保留灰色Y轴变量名）
-    for text in ax.texts:
-        if not text.get_text().lstrip('-').replace('.', '', 1).isdigit():
-            text.set_visible(False)
     
     plt.tight_layout()
     return fig, shap_values[1]
@@ -412,7 +388,7 @@ def main():
         
         # SHAP Explanations
         st.subheader("模型解释")
-        cols_shap = st.columns([1, 3])  
+         cols_shap = st.columns(2)
         
         # Global SHAP plot (pre-saved image)
         with cols_shap[0]:
@@ -426,7 +402,7 @@ def main():
         with cols_shap[1]:
             st.markdown("**单个样本预测解释**")
             shap_fig, shap_vals = explain_prediction(model, patient_data)
-            st.pyplot(shap_fig, use_container_width=True)
+            st.pyplot(shap_fig)
         
         if prediction == 1:
             st.subheader("反事实改进建议")
