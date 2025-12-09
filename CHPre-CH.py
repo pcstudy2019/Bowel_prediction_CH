@@ -55,7 +55,35 @@ FEATURE_DETAILS = {
     'LaxativeRegimen_5': {'display': '泻药方案：甘露醇', 'type': 'select', 'options': [0, 1], 'labels': {0: '否', 1: '是'}},
     'LaxativeRegimen_6': {'display': '泻药方案：硫酸镁', 'type': 'select', 'options': [0, 1], 'labels': {0: '否', 1: '是'}}
 }
-
+# 特征定义（英文，仅用于SHAP个体解释）
+FEATURE_DETAILS_EN = {
+    'HospitalGrade': {'display': 'Hospital Grade', 'type': 'select', 'options': [1, 2], 'labels': {1: 'Non-Tertiary', 2: 'Tertiary'}},
+    'Age': {'display': 'Age (years)', 'type': 'slider', 'min': 18, 'max': 90, 'default': 55},
+    'Sex': {'display': 'Sex', 'type': 'select', 'options': [1, 2], 'labels': {1: 'Female', 2: 'Male'}},
+    'BMI': {'display': 'BMI', 'type': 'slider', 'min': 15, 'max': 40, 'default': 28},
+    'InpatientStatus': {'display': 'Inpatient Status', 'type': 'select', 'options': [1, 2], 'labels': {1: 'Outpatient', 2: 'Inpatient'}},
+    'PreviousColonoscopy': {'display': 'Previous Colonoscopy', 'type': 'select', 'options': [1, 2], 'labels': {2: 'No', 1: 'Yes'}},
+    'ChronicConstipation': {'display': 'Chronic Constipation', 'type': 'select', 'options': [0, 1], 'labels': {0: 'No', 1: 'Yes'}},
+    'DiabetesMellitus': {'display': 'Diabetes Mellitus', 'type': 'select', 'options': [0, 1], 'labels': {0: 'No', 1: 'Yes'}},
+    'StoolForm': {'display': 'Stool Form', 'type': 'select', 'options': [1, 2], 'labels': {1: 'Bristol 3-7', 2: 'Bristol 1-2'}},
+    'BowelMovements': {'display': 'Bowel Movements', 'type': 'select', 'options': [1, 2, 3, 4], 'labels': {1: '<5', 2: '5-10', 3: '10-20', 4: '≥20'}},
+    'BPEducationModality': {'display': 'BP Education Modality', 'type': 'select', 'options': [1, 2], 'labels': {1: 'Enhanced', 2: 'Traditional'}},
+    'DietaryRestrictionDays': {'display': 'Dietary Restriction Days', 'type': 'slider', 'min': 0, 'max': 3, 'default': 1},
+    'PreColonoscopyPhysicalActivity': {'display': 'Pre-Colonoscopy Physical Activity', 'type': 'select', 'options': [0, 1], 'labels': {0: 'No', 1: 'Yes'}},
+    'PreviousAbdominopelvicSurgery_1.0': {'display': 'Previous Abdominal Surgery', 'type': 'select', 'options': [0, 1], 'labels': {0: 'No', 1: 'Yes'}},
+    'PreviousAbdominopelvicSurgery_2.0': {'display': 'Previous Abdominopelvic Surgery', 'type': 'select', 'options': [0, 1], 'labels': {0: 'No', 1: 'Yes'}},
+    'PreviousAbdominopelvicSurgery_3.0': {'display': 'Previous Pelvic Surgery', 'type': 'select', 'options': [0, 1], 'labels': {0: 'No', 1: 'Yes'}},
+    'DietaryRestriction_1': {'display': 'Diet Restriction: Fasting', 'type': 'select', 'options': [0, 1], 'labels': {0: 'No', 1: 'Yes'}},
+    'DietaryRestriction_2': {'display': 'Diet Restriction: Low-residue', 'type': 'select', 'options': [0, 1], 'labels': {0: 'No', 1: 'Yes'}},
+    'DietaryRestriction_3': {'display': 'Diet Restriction: Clear liquid', 'type': 'select', 'options': [0, 1], 'labels': {0: 'No', 1: 'Yes'}},
+    'DietaryRestriction_4': {'display': 'Diet Restriction: Regular', 'type': 'select', 'options': [0, 1], 'labels': {0: 'No', 1: 'Yes'}},
+    'LaxativeRegimen_1': {'display': 'Laxative: PEG 2L', 'type': 'select', 'options': [0, 1], 'labels': {0: 'No', 1: 'Yes'}},
+    'LaxativeRegimen_2': {'display': 'Laxative: PEG 3L', 'type': 'select', 'options': [0, 1], 'labels': {0: 'No', 1: 'Yes'}},
+    'LaxativeRegimen_3': {'display': 'Laxative: PEG 4L', 'type': 'select', 'options': [0, 1], 'labels': {0: 'No', 1: 'Yes'}},
+    'LaxativeRegimen_4': {'display': 'Laxative: Sodium Phosphate', 'type': 'select', 'options': [0, 1], 'labels': {0: 'No', 1: 'Yes'}},
+    'LaxativeRegimen_5': {'display': 'Laxative: Mannitol', 'type': 'select', 'options': [0, 1], 'labels': {0: 'No', 1: 'Yes'}},
+    'LaxativeRegimen_6': {'display': 'Laxative: Magnesium Sulfate', 'type': 'select', 'options': [0, 1], 'labels': {0: 'No', 1: 'Yes'}}
+}
 # Required feature order (match training data)
 FEATURE_ORDER = list(FEATURE_DETAILS.keys())
 
@@ -274,13 +302,8 @@ def generate_counterfactuals(model, patient_data):
         return pd.DataFrame(), []
 
 # ========== SHAP Explanations ==========
-# ========== SHAP Explanations ==========
 def explain_prediction(model, patient_data):
-    # 配置Matplotlib支持中文（关键步骤）
-    plt.rcParams["font.family"] = ["SimHei", "WenQuanYi Micro Hei", "Heiti TC"]  # 选择系统中存在的中文字体
-    plt.rcParams["axes.unicode_minus"] = False  # 解决负号显示问题
-
-    # Individual SHAP explanation
+    # Individual SHAP explanation (纯英文显示，避免乱码)
     explainer = shap.TreeExplainer(model)
     shap_values = explainer.shap_values(patient_data)
     
@@ -288,27 +311,27 @@ def explain_prediction(model, patient_data):
     base_value = explainer.expected_value[1]
     sample_shap = shap_values[1][0]  # 当前样本的SHAP值
     sample_features = patient_data.iloc[0]  # 当前样本的特征值
-    feature_names = [FEATURE_DETAILS[col]['display'] for col in FEATURE_ORDER]
     
-    # 手动构造“特征名: 特征值”的显示文本（避免长名称/乱码）
+    # 构造英文特征名 + 英文特征值（核心修改）
+    feature_names = [FEATURE_DETAILS_EN[col]['display'] for col in FEATURE_ORDER]
     display_data = []
     for col, val in sample_features.items():
-        # 对分类特征，显示标签而不是原始值；连续特征直接显示值
-        if FEATURE_DETAILS[col]['type'] == 'select':
-            val_display = FEATURE_DETAILS[col]['labels'].get(val, str(val))
+        # 对分类特征，显示英文标签；连续特征直接显示值
+        if FEATURE_DETAILS_EN[col]['type'] == 'select':
+            val_display = FEATURE_DETAILS_EN[col]['labels'].get(val, str(val))
         else:
             val_display = f"{val}"
-        # 拼接特征名和值，控制长度
-        display_data.append(f"{FEATURE_DETAILS[col]['display']}: {val_display}")
+        # 拼接英文特征名+值，控制长度
+        display_data.append(f"{FEATURE_DETAILS_EN[col]['display']}: {val_display}")
     
-    # 创建Waterfall图，指定data为构造好的显示文本
+    # 创建Waterfall图（纯英文，无需中文字体）
     fig = plt.figure(figsize=(10, 6))
     shap.waterfall_plot(
         shap.Explanation(
             values=sample_shap,
             base_values=base_value,
-            data=display_data,  # 用构造好的“特征名:值”文本
-            feature_names=feature_names
+            data=display_data,  # 英文特征值
+            feature_names=feature_names  # 英文特征名
         ),
         show=False
     )
