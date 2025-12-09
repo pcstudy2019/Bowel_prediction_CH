@@ -325,7 +325,7 @@ def explain_prediction(model, patient_data):
         display_data.append(f"{FEATURE_DETAILS_EN[col]['display']}: {val_display}")
     
     # 创建Waterfall图（纯英文，无需中文字体）
-    fig = plt.figure(figsize=(10, 6))
+    fig = plt.figure(figsize=(12, 8))
     shap.waterfall_plot(
         shap.Explanation(
             values=sample_shap,
