@@ -333,8 +333,8 @@ def explain_prediction(model, patient_data):
             data=display_data,  # 英文特征值
             feature_names=feature_names  # 英文特征名
         ),
-        show=False,
-        show_data=False
+        show=False
+      
     )
     plt.tight_layout()
     return fig, shap_values[1]
