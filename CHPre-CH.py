@@ -290,7 +290,8 @@ def generate_counterfactuals(model, patient_data):
                 changes = {}
                 for col in cf.index:
                     if col != 'outcome' and cf[col] != patient_data[col].values[0]:
-                        changes[col] = f"{patient_data[col].values[0]} → {cf[col]}"
+                        chinese_feature = FEATURE_DETAILS[col]['display']
+                        changes[chinese_feature] = f"{patient_data[col].values[0]} → {cf[col]}"
                 explanations.append(changes)
         
         return filtered_cf_df, explanations
