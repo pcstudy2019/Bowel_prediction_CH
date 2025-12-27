@@ -157,7 +157,8 @@ def create_input_form():
                 min_value=FEATURE_DETAILS['DietaryRestrictionDays']['min'], 
                 max_value=FEATURE_DETAILS['DietaryRestrictionDays']['max'], 
                 value=FEATURE_DETAILS['DietaryRestrictionDays']['default'],
-                step=FEATURE_DETAILS['DietaryRestrictionDays']['step'])
+                step=FEATURE_DETAILS['DietaryRestrictionDays']['step']
+            )
 
             st.markdown("**泻药方案**")
             cols_lax = st.columns(3)
