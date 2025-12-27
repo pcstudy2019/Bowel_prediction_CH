@@ -148,7 +148,7 @@ def create_input_form():
             input_data['PreviousAbdominopelvicSurgery_2.0'] = st.selectbox(FEATURE_DETAILS['PreviousAbdominopelvicSurgery_2.0']['display'], FEATURE_DETAILS['PreviousAbdominopelvicSurgery_2.0']['options'], format_func=lambda x: FEATURE_DETAILS['PreviousAbdominopelvicSurgery_2.0']['labels'][x])
             input_data['PreviousAbdominopelvicSurgery_3.0'] = st.selectbox(FEATURE_DETAILS['PreviousAbdominopelvicSurgery_3.0']['display'], FEATURE_DETAILS['PreviousAbdominopelvicSurgery_3.0']['options'], format_func=lambda x: FEATURE_DETAILS['PreviousAbdominopelvicSurgery_3.0']['labels'][x])
             
-            st.markdown("**饮食限制类型**")
+            st.markdown("**饮食限制**")
             cols_diet = st.columns(2)
             with cols_diet[0]:
                 input_data['DietaryRestriction_1'] = st.selectbox(FEATURE_DETAILS['DietaryRestriction_1']['display'], FEATURE_DETAILS['DietaryRestriction_1']['options'], format_func=lambda x: FEATURE_DETAILS['DietaryRestriction_1']['labels'][x])
