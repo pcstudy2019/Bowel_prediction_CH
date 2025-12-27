@@ -28,36 +28,36 @@ OPTIMAL_THRESHOLD = 0.27
 # Feature definitions (English display names)
 # 特征定义（中文显示名称）
 FEATURE_DETAILS = {
-    'HospitalGrade': {'display': '医院等级', 'type': 'select', 'options': [1, 2], 'labels': {1: '非三甲', 2: '三甲'}},
+    'HospitalGrade': {'display': '医院等级', 'type': 'select', 'options': [1, 2], 'labels': {1: '非三甲', 2: '三甲'}, 'default': 2},
     'Age': {'display': '年龄（岁）', 'type': 'slider', 'min': 18, 'max': 90, 'default': 55},
     'Sex': {'display': '性别', 'type': 'select', 'options': [1, 2], 'labels': {1: '女性', 2: '男性'}},
     'BMI': {'display': '身体质量指数（BMI）', 'type': 'slider', 'min': 15, 'max': 40, 'default': 28},
     'InpatientStatus': {'display': '住院状态', 'type': 'select', 'options': [1, 2], 'labels': {1: '门诊', 2: '住院'}},
-    'PreviousColonoscopy': {'display': '既往结肠镜检查史', 'type': 'select', 'options': [1, 2], 'labels': {2: '无', 1: '有'}},
+    'PreviousColonoscopy': {'display': '既往结肠镜检查史', 'type': 'select', 'options': [1, 2], 'labels': {2: '无', 1: '有'}, 'default': 2},
     'ChronicConstipation': {'display': '便秘病史', 'type': 'select', 'options': [0, 1], 'labels': {0: '无', 1: '有'}},
     'DiabetesMellitus': {'display': '糖尿病病史', 'type': 'select', 'options': [0, 1], 'labels': {0: '无', 1: '有'}},
     'StoolForm': {'display': '大便形状', 'type': 'select', 'options': [1, 2], 'labels': {1: '布里斯托粪便量表3-7型', 2: '布里斯托粪便量表1-2型'}},
     'BowelMovements': {'display': '排便次数', 'type': 'select', 'options': [1, 2, 3, 4], 'labels': {1: '<5次', 2: '5-10次', 3: '10-20次', 4: '≥20次'}},
-    'BPEducationModality': {'display': '肠道准备宣教方式', 'type': 'select', 'options': [1, 2], 'labels': {1: '增强型', 2: '传统型'}},
-    'DietaryRestrictionDays': {'display': '饮食限制天数', 'type': 'slider', 'min': 0, 'max': 3, 'default': 1},
+    'BPEducationModality': {'display': '肠道准备宣教方式', 'type': 'select', 'options': [1, 2], 'labels': {1: '增强型（图片或动画宣教）', 2: '传统型（文字或口头宣教）'}, 'default': 2},
+    'DietaryRestrictionDays': {'display': '饮食限制天数', 'type': 'slider', 'min': 0, 'max': 3, 'step': 0.5, 'default': 1},
     'PreColonoscopyPhysicalActivity': {'display': '结肠镜检查前体力活动', 'type': 'select', 'options': [0, 1], 'labels': {0: '无', 1: '有'}},
-    'PreviousAbdominopelvicSurgery_1.0': {'display': '既往手术史：腹部手术史', 'type': 'select', 'options': [0, 1], 'labels': {0: '否', 1: '是'}},
-    'PreviousAbdominopelvicSurgery_2.0': {'display': '既往手术史：腹腔手术史', 'type': 'select', 'options': [0, 1], 'labels': {0: '否', 1: '是'}},
-    'PreviousAbdominopelvicSurgery_3.0': {'display': '既往手术史：盆腔手术史', 'type': 'select', 'options': [0, 1], 'labels': {0: '否', 1: '是'}},
-    'DietaryRestriction_1': {'display': '饮食限制类型：禁食', 'type': 'select', 'options': [0, 1], 'labels': {0: '否', 1: '是'}},
-    'DietaryRestriction_2': {'display': '饮食限制类型：低渣饮食', 'type': 'select', 'options': [0, 1], 'labels': {0: '否', 1: '是'}},
-    'DietaryRestriction_3': {'display': '饮食限制类型：清流质饮食', 'type': 'select', 'options': [0, 1], 'labels': {0: '否', 1: '是'}},
-    'DietaryRestriction_4': {'display': '饮食限制类型：普通饮食', 'type': 'select', 'options': [0, 1], 'labels': {0: '否', 1: '是'}},
-    'LaxativeRegimen_1': {'display': '泻药方案：聚乙二醇2L', 'type': 'select', 'options': [0, 1], 'labels': {0: '否', 1: '是'}},
-    'LaxativeRegimen_2': {'display': '泻药方案：聚乙二醇3L', 'type': 'select', 'options': [0, 1], 'labels': {0: '否', 1: '是'}},
-    'LaxativeRegimen_3': {'display': '泻药方案：聚乙二醇4L', 'type': 'select', 'options': [0, 1], 'labels': {0: '否', 1: '是'}},
-    'LaxativeRegimen_4': {'display': '泻药方案：磷酸钠盐', 'type': 'select', 'options': [0, 1], 'labels': {0: '否', 1: '是'}},
-    'LaxativeRegimen_5': {'display': '泻药方案：甘露醇', 'type': 'select', 'options': [0, 1], 'labels': {0: '否', 1: '是'}},
-    'LaxativeRegimen_6': {'display': '泻药方案：硫酸镁', 'type': 'select', 'options': [0, 1], 'labels': {0: '否', 1: '是'}}
+    'PreviousAbdominopelvicSurgery_1.0': {'display': '腹盆部手术史', 'type': 'select', 'options': [0, 1], 'labels': {0: '否', 1: '是'}, 'default': 1},
+    'PreviousAbdominopelvicSurgery_2.0': {'display': '腹腔手术史', 'type': 'select', 'options': [0, 1], 'labels': {0: '否', 1: '是'}},
+    'PreviousAbdominopelvicSurgery_3.0': {'display': '盆腔手术史', 'type': 'select', 'options': [0, 1], 'labels': {0: '否', 1: '是'}},
+    'DietaryRestriction_1': {'display': '禁食', 'type': 'select', 'options': [0, 1], 'labels': {0: '否', 1: '是'}},
+    'DietaryRestriction_2': {'display': '低渣饮食', 'type': 'select', 'options': [0, 1], 'labels': {0: '否', 1: '是'}},
+    'DietaryRestriction_3': {'display': '清流质饮食', 'type': 'select', 'options': [0, 1], 'labels': {0: '否', 1: '是'}},
+    'DietaryRestriction_4': {'display': '普通饮食', 'type': 'select', 'options': [0, 1], 'labels': {0: '否', 1: '是'}},
+    'LaxativeRegimen_1': {'display': '聚乙二醇2L', 'type': 'select', 'options': [0, 1], 'labels': {0: '否', 1: '是'}},
+    'LaxativeRegimen_2': {'display': '聚乙二醇3L', 'type': 'select', 'options': [0, 1], 'labels': {0: '否', 1: '是'}},
+    'LaxativeRegimen_3': {'display': '聚乙二醇4L', 'type': 'select', 'options': [0, 1], 'labels': {0: '否', 1: '是'}},
+    'LaxativeRegimen_4': {'display': '磷酸钠盐', 'type': 'select', 'options': [0, 1], 'labels': {0: '否', 1: '是'}},
+    'LaxativeRegimen_5': {'display': '联合方案', 'type': 'select', 'options': [0, 1], 'labels': {0: '否', 1: '是'}},
+    'LaxativeRegimen_6': {'display': '硫酸镁', 'type': 'select', 'options': [0, 1], 'labels': {0: '否', 1: '是'}}
 }
 # 特征定义（英文，仅用于SHAP个体解释）
 FEATURE_DETAILS_EN = {
-    'HospitalGrade': {'display': 'Hospital Grade', 'type': 'select', 'options': [1, 2], 'labels': {1: 'Non-Tertiary', 2: 'Tertiary'}},
+    'HospitalGrade': {'display': 'Hospital Grade', 'type': 'select', 'options': [1, 2], 'labels': {1: 'Non-Tertiary', 2: 'Tertiary'}, 'default': 2}},
     'Age': {'display': 'Age (years)', 'type': 'slider', 'min': 18, 'max': 90, 'default': 55},
     'Sex': {'display': 'Sex', 'type': 'select', 'options': [1, 2], 'labels': {1: 'Female', 2: 'Male'}},
     'BMI': {'display': 'BMI', 'type': 'slider', 'min': 15, 'max': 40, 'default': 28},
@@ -67,8 +67,8 @@ FEATURE_DETAILS_EN = {
     'DiabetesMellitus': {'display': 'Diabetes Mellitus', 'type': 'select', 'options': [0, 1], 'labels': {0: 'No', 1: 'Yes'}},
     'StoolForm': {'display': 'Stool Form', 'type': 'select', 'options': [1, 2], 'labels': {1: 'Bristol 3-7', 2: 'Bristol 1-2'}},
     'BowelMovements': {'display': 'Bowel Movements', 'type': 'select', 'options': [1, 2, 3, 4], 'labels': {1: '<5', 2: '5-10', 3: '10-20', 4: '≥20'}},
-    'BPEducationModality': {'display': 'BP Education Modality', 'type': 'select', 'options': [1, 2], 'labels': {1: 'Enhanced', 2: 'Traditional'}},
-    'DietaryRestrictionDays': {'display': 'Dietary Restriction Days', 'type': 'slider', 'min': 0, 'max': 3, 'default': 1},
+    'BPEducationModality': {'display': 'BP Education Modality', 'type': 'select', 'options': [1, 2], 'labels': {1: 'Enhanced (image or animation-based education)', 2: 'Traditional (text or verbal education)'}},
+    'DietaryRestrictionDays': {'display': 'Dietary Restriction Days', 'type': 'slider', 'min': 0, 'max': 3, 'step': 0.5,'default': 1},
     'PreColonoscopyPhysicalActivity': {'display': 'Pre-Colonoscopy Physical Activity', 'type': 'select', 'options': [0, 1], 'labels': {0: 'No', 1: 'Yes'}},
     'PreviousAbdominopelvicSurgery_1.0': {'display': 'Previous Abdominal Surgery', 'type': 'select', 'options': [0, 1], 'labels': {0: 'No', 1: 'Yes'}},
     'PreviousAbdominopelvicSurgery_2.0': {'display': 'Previous Abdominopelvic Surgery', 'type': 'select', 'options': [0, 1], 'labels': {0: 'No', 1: 'Yes'}},
@@ -77,12 +77,12 @@ FEATURE_DETAILS_EN = {
     'DietaryRestriction_2': {'display': 'Diet Restriction: Low-residue', 'type': 'select', 'options': [0, 1], 'labels': {0: 'No', 1: 'Yes'}},
     'DietaryRestriction_3': {'display': 'Diet Restriction: Clear liquid', 'type': 'select', 'options': [0, 1], 'labels': {0: 'No', 1: 'Yes'}},
     'DietaryRestriction_4': {'display': 'Diet Restriction: Regular', 'type': 'select', 'options': [0, 1], 'labels': {0: 'No', 1: 'Yes'}},
-    'LaxativeRegimen_1': {'display': 'Laxative: PEG 2L', 'type': 'select', 'options': [0, 1], 'labels': {0: 'No', 1: 'Yes'}},
-    'LaxativeRegimen_2': {'display': 'Laxative: PEG 3L', 'type': 'select', 'options': [0, 1], 'labels': {0: 'No', 1: 'Yes'}},
-    'LaxativeRegimen_3': {'display': 'Laxative: PEG 4L', 'type': 'select', 'options': [0, 1], 'labels': {0: 'No', 1: 'Yes'}},
-    'LaxativeRegimen_4': {'display': 'Laxative: Sodium Phosphate', 'type': 'select', 'options': [0, 1], 'labels': {0: 'No', 1: 'Yes'}},
-    'LaxativeRegimen_5': {'display': 'Laxative: Mannitol', 'type': 'select', 'options': [0, 1], 'labels': {0: 'No', 1: 'Yes'}},
-    'LaxativeRegimen_6': {'display': 'Laxative: Magnesium Sulfate', 'type': 'select', 'options': [0, 1], 'labels': {0: 'No', 1: 'Yes'}}
+    'LaxativeRegimen_1': {'display': 'PEG 2L', 'type': 'select', 'options': [0, 1], 'labels': {0: 'No', 1: 'Yes'}},
+    'LaxativeRegimen_2': {'display': 'PEG 3L', 'type': 'select', 'options': [0, 1], 'labels': {0: 'No', 1: 'Yes'}},
+    'LaxativeRegimen_3': {'display': 'PEG 4L', 'type': 'select', 'options': [0, 1], 'labels': {0: 'No', 1: 'Yes'}},
+    'LaxativeRegimen_4': {'display': 'Sodium Phosphate', 'type': 'select', 'options': [0, 1], 'labels': {0: 'No', 1: 'Yes'}},
+    'LaxativeRegimen_5': {'display': 'Combined Modality', 'type': 'select', 'options': [0, 1], 'labels': {0: 'No', 1: 'Yes'}},
+    'LaxativeRegimen_6': {'display': 'Magnesium Sulfate', 'type': 'select', 'options': [0, 1], 'labels': {0: 'No', 1: 'Yes'}}
 }
 # Required feature order (match training data)
 FEATURE_ORDER = list(FEATURE_DETAILS.keys())
@@ -120,14 +120,14 @@ def create_input_form():
 
         # Column 2: Preparation & Surgery History
         with cols_main[1]:
-            st.markdown("**肠道准备**")
+            st.markdown("**患者宣教**")
             # 修正BP Education Modality选择框，显示英文标签
             input_data['BPEducationModality'] = st.selectbox(
                 FEATURE_DETAILS['BPEducationModality']['display'],
                 FEATURE_DETAILS['BPEducationModality']['options'],
                 format_func=lambda x: FEATURE_DETAILS['BPEducationModality']['labels'][x]
             )
-            input_data['DietaryRestrictionDays'] = st.slider(FEATURE_DETAILS['DietaryRestrictionDays']['display'], FEATURE_DETAILS['DietaryRestrictionDays']['min'], FEATURE_DETAILS['DietaryRestrictionDays']['max'], FEATURE_DETAILS['DietaryRestrictionDays']['default'])
+
             input_data['PreColonoscopyPhysicalActivity'] = st.selectbox(FEATURE_DETAILS['PreColonoscopyPhysicalActivity']['display'], FEATURE_DETAILS['PreColonoscopyPhysicalActivity']['options'], format_func=lambda x: FEATURE_DETAILS['PreColonoscopyPhysicalActivity']['labels'][x])
             
             st.markdown("**既往手术史**")
@@ -144,6 +144,8 @@ def create_input_form():
                 input_data['DietaryRestriction_3'] = st.selectbox(FEATURE_DETAILS['DietaryRestriction_3']['display'], FEATURE_DETAILS['DietaryRestriction_3']['options'], format_func=lambda x: FEATURE_DETAILS['DietaryRestriction_3']['labels'][x])
                 input_data['DietaryRestriction_4'] = st.selectbox(FEATURE_DETAILS['DietaryRestriction_4']['display'], FEATURE_DETAILS['DietaryRestriction_4']['options'], format_func=lambda x: FEATURE_DETAILS['DietaryRestriction_4']['labels'][x])
             
+            input_data['DietaryRestrictionDays'] = st.slider(FEATURE_DETAILS['DietaryRestrictionDays']['display'], FEATURE_DETAILS['DietaryRestrictionDays']['min'], FEATURE_DETAILS['DietaryRestrictionDays']['max'], FEATURE_DETAILS['DietaryRestrictionDays']['default'],step=FEATURE_DETAILS['DietaryRestrictionDays']['step'])
+
             st.markdown("**泻药方案**")
             cols_lax = st.columns(3)
             with cols_lax[0]:
@@ -291,7 +293,22 @@ def generate_counterfactuals(model, patient_data):
                 for col in cf.index:
                     if col != 'outcome' and cf[col] != patient_data[col].values[0]:
                         chinese_feature = FEATURE_DETAILS[col]['display']
-                        changes[chinese_feature] = f"{patient_data[col].values[0]} → {cf[col]}"
+                       # 获取原始值和反事实值
+                        orig_val = patient_data[col].values[0]
+                        cf_val = cf[col]
+
+                        # 根据特征类型映射标签
+
+                        if FEATURE_DETAILS[col]['type'] == 'select':
+                         # 映射为中文标签（是/否/三甲等）
+                            orig_label = FEATURE_DETAILS[col]['labels'].get(orig_val, str(orig_val))
+                            cf_label = FEATURE_DETAILS[col]['labels'].get(cf_val, str(cf_val))
+                        else:
+                            # 数值型特征（如年龄、BMI）保持原数值
+                            orig_label = str(orig_val)
+                            cf_label = str(cf_val)
+
+                        changes[chinese_feature] = f"{orig_label} → {cf_label}"
                 explanations.append(changes)
         
         return filtered_cf_df, explanations
@@ -347,11 +364,11 @@ def explain_prediction(model, patient_data):
 def main():
     st.title("结肠镜肠道准备效果预测工具")
     st.markdown("""
-    本工具用于预测结肠镜检查前肠道准备的效果。该工具基于全国170余家医院的12000余例结肠镜检查患者数据开发，
-    采用随机森林模型，通过16项特征（年龄、性别、BMI、便秘病史、糖尿病病史、既往手术史、既往结肠镜检查史、住院状态、
-    肠道准备教育方式、饮食限制类型、饮食限制天数、泻药方案、排便次数、大便形状、结肠镜检查前体力活动、医院等级）
-    预测患者肠道准备不足的风险等级（高/低）。此外，工具还集成了反事实分析模块，可为临床医生和患者提供针对性的改进建议，
-    帮助降低肠道准备失败的风险。
+  本工具用于预测结肠镜检查前肠道准备的质量。该工具基于全国170余家医院的12000余例结肠镜检查患者数据开发， 
+  采用随机森林模型，通过16项特征（年龄、性别、BMI、便秘病史、糖尿病病史、既往手术史、既往结肠镜检查史、
+  住院状态、 肠道准备教育方式、饮食限制类型、饮食限制天数、泻药方案、排便次数、大便形状、结肠镜检查前体力活动、
+  医院等级） 预测患者肠道准备不充分的风险等级（高/低）。此外，工具还集成了反事实分析模块，可为临床医生和患者
+  提供针对性的改进建议， 帮助降低肠道准备不充分的风险。
     """)
     
     # Load model
@@ -363,11 +380,7 @@ def main():
     patient_data = create_input_form()
     
     if patient_data is not None:
-        # Display input data
-        st.subheader("患者输入信息汇总")
-        display_df = patient_data.copy()
-        display_df.columns = [FEATURE_DETAILS[col]['display'] for col in display_df.columns]
-        st.dataframe(display_df.T, column_config={"0": "取值"}, use_container_width=True)
+      
         
         # Predict
         wrapped_model = ModelWrapper(model)
@@ -379,13 +392,13 @@ def main():
         col1, col2 = st.columns(2)
         with col1:
             st.metric(
-                "肠道准备不足概率",
+                "肠道准备不充分概率",
                 f"{prob:.2%}",
                 delta="高风险" if prediction == 1 else "低风险",
                 delta_color="inverse" if prediction == 1 else "normal"
             )
         with col2:
-            st.write(f"预测结果: {'肠道准备不足' if prediction == 1 else '肠道准备充分'}")
+            st.write(f"预测结果: {'肠道准备不充分' if prediction == 1 else '肠道准备充分'}")
         
         # SHAP Explanations
         st.subheader("模型解释")
