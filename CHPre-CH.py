@@ -57,7 +57,7 @@ FEATURE_DETAILS = {
 }
 # 特征定义（英文，仅用于SHAP个体解释）
 FEATURE_DETAILS_EN = {
-    'HospitalGrade': {'display': 'Hospital Grade', 'type': 'select', 'options': [1, 2], 'labels': {1: 'Non-Tertiary', 2: 'Tertiary'}, 'default': 2}},
+    'HospitalGrade': {'display': 'Hospital Grade', 'type': 'select', 'options': [1, 2], 'labels': {1: 'Non-Tertiary', 2: 'Tertiary'}},
     'Age': {'display': 'Age (years)', 'type': 'slider', 'min': 18, 'max': 90, 'default': 55},
     'Sex': {'display': 'Sex', 'type': 'select', 'options': [1, 2], 'labels': {1: 'Female', 2: 'Male'}},
     'BMI': {'display': 'BMI', 'type': 'slider', 'min': 15, 'max': 40, 'default': 28},
