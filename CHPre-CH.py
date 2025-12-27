@@ -139,7 +139,12 @@ def create_input_form():
             input_data['PreColonoscopyPhysicalActivity'] = st.selectbox(FEATURE_DETAILS['PreColonoscopyPhysicalActivity']['display'], FEATURE_DETAILS['PreColonoscopyPhysicalActivity']['options'], format_func=lambda x: FEATURE_DETAILS['PreColonoscopyPhysicalActivity']['labels'][x])
             
             st.markdown("**既往手术史**")
-            input_data['PreviousAbdominopelvicSurgery_1.0'] = st.selectbox(FEATURE_DETAILS['PreviousAbdominopelvicSurgery_1.0']['display'], FEATURE_DETAILS['PreviousAbdominopelvicSurgery_1.0']['options'], format_func=lambda x: FEATURE_DETAILS['PreviousAbdominopelvicSurgery_1.0']['labels'][x])
+            input_data['PreviousAbdominopelvicSurgery_1.0'] = st.selectbox(
+                FEATURE_DETAILS['PreviousAbdominopelvicSurgery_1.0']['display'], 
+                FEATURE_DETAILS['PreviousAbdominopelvicSurgery_1.0']['options'], 
+                format_func=lambda x: FEATURE_DETAILS['PreviousAbdominopelvicSurgery_1.0']['labels'][x],
+                index=FEATURE_DETAILS['PreviousAbdominopelvicSurgery_1.0']['options'].index(FEATURE_DETAILS['PreviousAbdominopelvicSurgery_1.0']['default'])
+            )
             input_data['PreviousAbdominopelvicSurgery_2.0'] = st.selectbox(FEATURE_DETAILS['PreviousAbdominopelvicSurgery_2.0']['display'], FEATURE_DETAILS['PreviousAbdominopelvicSurgery_2.0']['options'], format_func=lambda x: FEATURE_DETAILS['PreviousAbdominopelvicSurgery_2.0']['labels'][x])
             input_data['PreviousAbdominopelvicSurgery_3.0'] = st.selectbox(FEATURE_DETAILS['PreviousAbdominopelvicSurgery_3.0']['display'], FEATURE_DETAILS['PreviousAbdominopelvicSurgery_3.0']['options'], format_func=lambda x: FEATURE_DETAILS['PreviousAbdominopelvicSurgery_3.0']['labels'][x])
             
@@ -441,9 +446,9 @@ def main():
                     for feature, change in explanations[i].items():
                         st.write(f"- {feature}: {change}")
                     # 定义cf_display并展示
-                    cf_display = cf[FEATURE_ORDER]  # 直接取反事实的所有特征列
-                    cf_display.index = [FEATURE_DETAILS[col]['display'] for col in cf_display.index]
-                    st.dataframe(cf_display.T, use_container_width=True)
+                   # cf_display = cf[FEATURE_ORDER]  # 直接取反事实的所有特征列
+                    #cf_display.index = [FEATURE_DETAILS[col]['display'] for col in cf_display.index]
+                    #st.dataframe(cf_display.T, use_container_width=True)
             else:
                 st.info("未找到有效的反事实改进建议。")
 
