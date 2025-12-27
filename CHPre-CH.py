@@ -154,9 +154,9 @@ def create_input_form():
             
             input_data['DietaryRestrictionDays'] = st.slider(
                 FEATURE_DETAILS['DietaryRestrictionDays']['display'], 
-                min_value=FEATURE_DETAILS['DietaryRestrictionDays']['min'], 
-                max_value=FEATURE_DETAILS['DietaryRestrictionDays']['max'], 
-                value=FEATURE_DETAILS['DietaryRestrictionDays']['default'],
+                FEATURE_DETAILS['DietaryRestrictionDays']['min'], 
+                FEATURE_DETAILS['DietaryRestrictionDays']['max'], 
+                FEATURE_DETAILS['DietaryRestrictionDays']['default'],
                 step=FEATURE_DETAILS['DietaryRestrictionDays']['step']
             )
 
