@@ -102,7 +102,9 @@ def create_input_form():
             input_data['HospitalGrade'] = st.selectbox(
                 FEATURE_DETAILS['HospitalGrade']['display'],
                 FEATURE_DETAILS['HospitalGrade']['options'],
-                format_func=lambda x: FEATURE_DETAILS['HospitalGrade']['labels'][x]
+                format_func=lambda x: FEATURE_DETAILS['HospitalGrade']['labels'][x],
+                # 新增：指定默认选中的index（对应default=2）
+                index=FEATURE_DETAILS['HospitalGrade']['options'].index(FEATURE_DETAILS['HospitalGrade']['default'])
             )
             input_data['Age'] = st.slider(FEATURE_DETAILS['Age']['display'], FEATURE_DETAILS['Age']['min'], FEATURE_DETAILS['Age']['max'], FEATURE_DETAILS['Age']['default'])
             input_data['Sex'] = st.selectbox(FEATURE_DETAILS['Sex']['display'], FEATURE_DETAILS['Sex']['options'], format_func=lambda x: FEATURE_DETAILS['Sex']['labels'][x])
@@ -110,7 +112,12 @@ def create_input_form():
             
             st.markdown("**临床病史**")
             input_data['InpatientStatus'] = st.selectbox(FEATURE_DETAILS['InpatientStatus']['display'], FEATURE_DETAILS['InpatientStatus']['options'], format_func=lambda x: FEATURE_DETAILS['InpatientStatus']['labels'][x])
-            input_data['PreviousColonoscopy'] = st.selectbox(FEATURE_DETAILS['PreviousColonoscopy']['display'], FEATURE_DETAILS['PreviousColonoscopy']['options'], format_func=lambda x: FEATURE_DETAILS['PreviousColonoscopy']['labels'][x])
+            input_data['PreviousColonoscopy'] = st.selectbox(
+                FEATURE_DETAILS['PreviousColonoscopy']['display'], 
+                FEATURE_DETAILS['PreviousColonoscopy']['options'], 
+                format_func=lambda x: FEATURE_DETAILS['PreviousColonoscopy']['labels'][x],
+                index=FEATURE_DETAILS['PreviousColonoscopy']['options'].index(FEATURE_DETAILS['PreviousColonoscopy']['default'])
+            )
             input_data['ChronicConstipation'] = st.selectbox(FEATURE_DETAILS['ChronicConstipation']['display'], FEATURE_DETAILS['ChronicConstipation']['options'], format_func=lambda x: FEATURE_DETAILS['ChronicConstipation']['labels'][x])
             input_data['DiabetesMellitus'] = st.selectbox(FEATURE_DETAILS['DiabetesMellitus']['display'], FEATURE_DETAILS['DiabetesMellitus']['options'], format_func=lambda x: FEATURE_DETAILS['DiabetesMellitus']['labels'][x])
             
@@ -125,7 +132,8 @@ def create_input_form():
             input_data['BPEducationModality'] = st.selectbox(
                 FEATURE_DETAILS['BPEducationModality']['display'],
                 FEATURE_DETAILS['BPEducationModality']['options'],
-                format_func=lambda x: FEATURE_DETAILS['BPEducationModality']['labels'][x]
+                format_func=lambda x: FEATURE_DETAILS['BPEducationModality']['labels'][x],
+                index=FEATURE_DETAILS['BPEducationModality']['options'].index(FEATURE_DETAILS['BPEducationModality']['default'])
             )
 
             input_data['PreColonoscopyPhysicalActivity'] = st.selectbox(FEATURE_DETAILS['PreColonoscopyPhysicalActivity']['display'], FEATURE_DETAILS['PreColonoscopyPhysicalActivity']['options'], format_func=lambda x: FEATURE_DETAILS['PreColonoscopyPhysicalActivity']['labels'][x])
@@ -144,7 +152,12 @@ def create_input_form():
                 input_data['DietaryRestriction_3'] = st.selectbox(FEATURE_DETAILS['DietaryRestriction_3']['display'], FEATURE_DETAILS['DietaryRestriction_3']['options'], format_func=lambda x: FEATURE_DETAILS['DietaryRestriction_3']['labels'][x])
                 input_data['DietaryRestriction_4'] = st.selectbox(FEATURE_DETAILS['DietaryRestriction_4']['display'], FEATURE_DETAILS['DietaryRestriction_4']['options'], format_func=lambda x: FEATURE_DETAILS['DietaryRestriction_4']['labels'][x])
             
-            input_data['DietaryRestrictionDays'] = st.slider(FEATURE_DETAILS['DietaryRestrictionDays']['display'], FEATURE_DETAILS['DietaryRestrictionDays']['min'], FEATURE_DETAILS['DietaryRestrictionDays']['max'], FEATURE_DETAILS['DietaryRestrictionDays']['default'],step=FEATURE_DETAILS['DietaryRestrictionDays']['step'])
+            input_data['DietaryRestrictionDays'] = st.slider(
+                FEATURE_DETAILS['DietaryRestrictionDays']['display'], 
+                min_value=FEATURE_DETAILS['DietaryRestrictionDays']['min'], 
+                max_value=FEATURE_DETAILS['DietaryRestrictionDays']['max'], 
+                value=FEATURE_DETAILS['DietaryRestrictionDays']['default'],
+                step=FEATURE_DETAILS['DietaryRestrictionDays']['step'])
 
             st.markdown("**泻药方案**")
             cols_lax = st.columns(3)
