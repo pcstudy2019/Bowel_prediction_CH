@@ -1,3 +1,4 @@
+
 import streamlit as st
 import pandas as pd
 import numpy as np
@@ -55,6 +56,7 @@ FEATURE_DETAILS = {
     'LaxativeRegimen_5': {'display': '联合方案', 'type': 'select', 'options': [0, 1], 'labels': {0: '否', 1: '是'}},
     'LaxativeRegimen_6': {'display': '硫酸镁', 'type': 'select', 'options': [0, 1], 'labels': {0: '否', 1: '是'}}
 }
+
 # 特征定义（英文，仅用于SHAP个体解释）
 FEATURE_DETAILS_EN = {
     'HospitalGrade': {'display': 'Hospital Grade', 'type': 'select', 'options': [1, 2], 'labels': {1: 'Non-Tertiary', 2: 'Tertiary'}},
@@ -84,6 +86,7 @@ FEATURE_DETAILS_EN = {
     'LaxativeRegimen_5': {'display': 'Combined Modality', 'type': 'select', 'options': [0, 1], 'labels': {0: 'No', 1: 'Yes'}},
     'LaxativeRegimen_6': {'display': 'Magnesium Sulfate', 'type': 'select', 'options': [0, 1], 'labels': {0: 'No', 1: 'Yes'}}
 }
+
 # Required feature order (match training data)
 FEATURE_ORDER = list(FEATURE_DETAILS.keys())
 
@@ -108,7 +111,20 @@ def create_input_form():
             )
             input_data['Age'] = st.slider(FEATURE_DETAILS['Age']['display'], FEATURE_DETAILS['Age']['min'], FEATURE_DETAILS['Age']['max'], FEATURE_DETAILS['Age']['default'])
             input_data['Sex'] = st.selectbox(FEATURE_DETAILS['Sex']['display'], FEATURE_DETAILS['Sex']['options'], format_func=lambda x: FEATURE_DETAILS['Sex']['labels'][x])
-            input_data['BMI'] = st.slider(FEATURE_DETAILS['BMI']['display'], FEATURE_DETAILS['BMI']['min'], FEATURE_DETAILS['BMI']['max'], FEATURE_DETAILS['BMI']['default'])
+            
+            # --- MODIFIED SECTION: 身高体重计算BMI ---
+            st.markdown("**身体指标**")
+            col_bmi_1, col_bmi_2 = st.columns(2)
+            with col_bmi_1:
+                height_cm = st.number_input("身高 (cm)", min_value=100.0, max_value=250.0, value=170.0, step=1.0)
+            with col_bmi_2:
+                weight_kg = st.number_input("体重 (kg)", min_value=30.0, max_value=200.0, value=70.0, step=0.5)
+            
+            # 自动计算BMI并存入 input_data
+            bmi_val = weight_kg / ((height_cm / 100.0) ** 2)
+            input_data['BMI'] = bmi_val
+            st.info(f"自动计算 BMI: {bmi_val:.1f}")
+            # --- END MODIFIED SECTION ---
             
             st.markdown("**临床病史**")
             input_data['InpatientStatus'] = st.selectbox(FEATURE_DETAILS['InpatientStatus']['display'], FEATURE_DETAILS['InpatientStatus']['options'], format_func=lambda x: FEATURE_DETAILS['InpatientStatus']['labels'][x])
@@ -124,7 +140,7 @@ def create_input_form():
             st.markdown("**胃肠特征**")
             input_data['StoolForm'] = st.selectbox(FEATURE_DETAILS['StoolForm']['display'], FEATURE_DETAILS['StoolForm']['options'], format_func=lambda x: FEATURE_DETAILS['StoolForm']['labels'][x])
             input_data['BowelMovements'] = st.selectbox(FEATURE_DETAILS['BowelMovements']['display'], FEATURE_DETAILS['BowelMovements']['options'], format_func=lambda x: FEATURE_DETAILS['BowelMovements']['labels'][x])
-
+        
         # Column 2: Preparation & Surgery History
         with cols_main[1]:
             st.markdown("**患者宣教**")
@@ -135,7 +151,6 @@ def create_input_form():
                 format_func=lambda x: FEATURE_DETAILS['BPEducationModality']['labels'][x],
                 index=FEATURE_DETAILS['BPEducationModality']['options'].index(FEATURE_DETAILS['BPEducationModality']['default'])
             )
-
             input_data['PreColonoscopyPhysicalActivity'] = st.selectbox(FEATURE_DETAILS['PreColonoscopyPhysicalActivity']['display'], FEATURE_DETAILS['PreColonoscopyPhysicalActivity']['options'], format_func=lambda x: FEATURE_DETAILS['PreColonoscopyPhysicalActivity']['labels'][x])
             
             st.markdown("**既往手术史**")
@@ -164,7 +179,6 @@ def create_input_form():
                 FEATURE_DETAILS['DietaryRestrictionDays']['default']
             
             )
-
             st.markdown("**泻药方案**")
             cols_lax = st.columns(3)
             with cols_lax[0]:
@@ -197,8 +211,6 @@ class ModelWrapper:
     
     def predict_proba(self, X):
         return self.model.predict_proba(X)
-
-
 
 # ========== Counterfactual Generation ==========
 def generate_counterfactuals(model, patient_data):
@@ -317,7 +329,6 @@ def generate_counterfactuals(model, patient_data):
                         cf_val = cf[col]
 
                         # 根据特征类型映射标签
-
                         if FEATURE_DETAILS[col]['type'] == 'select':
                          # 映射为中文标签（是/否/三甲等）
                             orig_label = FEATURE_DETAILS[col]['labels'].get(orig_val, str(orig_val))
@@ -454,3 +465,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
